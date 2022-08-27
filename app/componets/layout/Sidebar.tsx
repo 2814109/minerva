@@ -5,8 +5,10 @@ const Sidebar: FC = () => {
   console.log("sidebar");
 
   return (
-    <aside>
-      <nav>Sidebar</nav>
+    <aside className="w-64">
+      <div className="overflow-y-auto py-4 px-3 bg-blue-50 h-screen">
+        <nav>Sidebar</nav>
+      </div>
     </aside>
   );
 };

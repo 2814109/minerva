@@ -9,7 +9,7 @@ const Layout: FC<Props> = ({ children }) => (
     <Header />
     <div className="flex">
       <Sidebar />
-      <div>{children}</div>
+      <div className="p-8">{children}</div>
     </div>
   </>
 );
