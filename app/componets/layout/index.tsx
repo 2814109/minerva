@@ -7,8 +7,10 @@ type Props = {
 const Layout: FC<Props> = ({ children }) => (
   <>
     <Header />
-    <Sidebar />
-    {children}
+    <div className="flex">
+      <Sidebar />
+      <div>{children}</div>
+    </div>
   </>
 );
 
