@@ -1,10 +1,13 @@
 import { FC, ReactNode } from "react";
+import Header from "./Header";
+import Sidebar from "./Sidebar";
 type Props = {
   children: ReactNode;
 };
 const Layout: FC<Props> = ({ children }) => (
   <>
-    <h1>Layout</h1>
+    <Header />
+    <Sidebar />
     {children}
   </>
 );
