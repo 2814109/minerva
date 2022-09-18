@@ -1,16 +1,9 @@
-import { FC, Suspense, useEffect } from "react";
-import useBooks from "~/hooks/books";
+import { FC, Suspense } from "react";
 
 // fetch index books api
 // fillin for list item from fetch books
 
 const Book: FC = () => {
-  const { fetcher, statusCode, book } = useBooks();
-
-  useEffect(() => {
-    void fetcher();
-  }, []);
-
   return (
     <>
       <h1>Book</h1>
