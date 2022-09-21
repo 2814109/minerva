@@ -3,6 +3,9 @@ import { Form, useActionData, useLoaderData } from "@remix-run/react";
 import { FC, lazy } from "react";
 import { loginAnonymous, getCurrentUser } from "~/models/auth.server";
 import { useTransition } from "@remix-run/react";
+import LoginedComponent from "~/componets/routes/auth/LoginedComponent";
+
+import LoginButton from "~/componets/routes/auth/LoginButton";
 
 export const loader: LoaderFunction = async () => {
   const currentUser = await getCurrentUser();
@@ -19,11 +22,6 @@ export const action: ActionFunction = async ({ request }) => {
 
   return redirect("/auth/login");
 };
-
-const LoginedComponent = lazy(
-  () => import("~/componets/routes/auth/LoginedComponent")
-);
-const LoginButton = lazy(() => import("~/componets/routes/auth/LoginButton"));
 
 const App: FC = () => {
   const currentUser = useLoaderData();
