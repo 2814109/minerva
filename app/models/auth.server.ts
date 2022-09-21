@@ -1,7 +1,9 @@
 import { app } from "~/utils/realmClient.server";
+import * as Realm from "realm-web";
 
 export const loginAnonymous = async () => {
-  const user: Realm.User = await app.logIn(Realm.Credentials.anonymous());
+  const credentials = Realm.Credentials.anonymous();
+  const user: Realm.User = await app.logIn(credentials);
   return user;
 };
 

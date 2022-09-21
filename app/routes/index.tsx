@@ -1,11 +1,24 @@
-import { LoaderFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
-import { FC, useState } from "react";
+import { ActionFunction, LoaderFunction, redirect } from "@remix-run/node";
+import { Form, useActionData, useLoaderData } from "@remix-run/react";
+
+import { FC } from "react";
 import { loginAnonymous, getCurrentUser } from "~/models/auth.server";
+import { useTransition } from "@remix-run/react";
 
 export const loader: LoaderFunction = async () => {
-  const currentUser = getCurrentUser();
-  return { currentUser };
+  const currentUser = await getCurrentUser();
+  console.log("current user");
+  console.log(currentUser);
+  return currentUser;
+};
+
+export const action: ActionFunction = async ({ request }) => {
+  const user = await loginAnonymous();
+
+  console.log("user");
+  console.log(user);
+
+  return redirect("/");
 };
 
 const UserDetail = ({ user }: { user: Realm.User }) => {
@@ -17,20 +30,35 @@ const UserDetail = ({ user }: { user: Realm.User }) => {
 };
 // Create a component that lets an anonymous user log in
 
-const Login: FC = () => {
-  return <button onClick={loginAnonymous}>Log In</button>;
+const LoginButton: FC = () => {
+  return (
+    <Form method="post">
+      <button type="submit">Log In</button>
+    </Form>
+  );
 };
 
 const App: FC = () => {
-  const { currentUser } = useLoaderData();
+  const currentUser = useLoaderData();
   // Keep the logged in Realm user in local state. This lets the app re-render
   // whenever the current user changes (e.g. logs in or logs out).
-  const [user, setUser] = useState<Realm.User | null>(currentUser);
   // If a user is logged in, show their details. Otherwise, show the login screen.
+
+  const actionData = useActionData();
+  const transition = useTransition();
+
+  const isTransition = transition.submission;
+
   return (
     <div className="App">
       <div className="App-header">
-        {user ? <UserDetail user={user} /> : <Login />}
+        {currentUser ? (
+          <UserDetail user={currentUser} />
+        ) : isTransition ? (
+          <>...loading</>
+        ) : (
+          <LoginButton />
+        )}
       </div>
     </div>
   );
