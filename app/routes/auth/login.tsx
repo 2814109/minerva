@@ -1,7 +1,6 @@
 import { ActionFunction, LoaderFunction, redirect } from "@remix-run/node";
 import { Form, useActionData, useLoaderData } from "@remix-run/react";
-
-import { FC } from "react";
+import { FC, lazy } from "react";
 import { loginAnonymous, getCurrentUser } from "~/models/auth.server";
 import { useTransition } from "@remix-run/react";
 
@@ -18,32 +17,13 @@ export const action: ActionFunction = async ({ request }) => {
   console.log("user");
   console.log(user);
 
-  return redirect("/");
+  return redirect("/auth/login");
 };
 
-const UserDetail = ({ user }: { user: Realm.User }) => {
-  return (
-    <div>
-      <h1>Logged in with anonymous id: {user.id}</h1>
-    </div>
-  );
-};
-// Create a component that lets an anonymous user log in
-
-const LoginButton: FC = () => {
-  return (
-    <Form method="post">
-      <button type="submit">Log In</button>
-    </Form>
-  );
-};
-const LogoutButton: FC = () => {
-  return (
-    <Form method="post" action="/logout">
-      <button type="submit">Log out</button>
-    </Form>
-  );
-};
+const LoginedComponent = lazy(
+  () => import("~/componets/routes/auth/LoginedComponent")
+);
+const LoginButton = lazy(() => import("~/componets/routes/auth/LoginButton"));
 
 const App: FC = () => {
   const currentUser = useLoaderData();
@@ -51,7 +31,6 @@ const App: FC = () => {
   // whenever the current user changes (e.g. logs in or logs out).
   // If a user is logged in, show their details. Otherwise, show the login screen.
 
-  const actionData = useActionData();
   const transition = useTransition();
 
   const isTransition = transition.submission;
@@ -64,10 +43,7 @@ const App: FC = () => {
         ) : (
           <>
             {currentUser ? (
-              <>
-                <UserDetail user={currentUser} />
-                <LogoutButton />
-              </>
+              <LoginedComponent currentUser={currentUser} />
             ) : (
               <LoginButton />
             )}
