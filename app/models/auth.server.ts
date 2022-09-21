@@ -12,3 +12,7 @@ export const getCurrentUser = async () => {
 
   return currentUser;
 };
+
+export const logout = async () => {
+  await app.currentUser?.logOut();
+};

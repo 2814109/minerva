@@ -37,6 +37,13 @@ const LoginButton: FC = () => {
     </Form>
   );
 };
+const LogoutButton: FC = () => {
+  return (
+    <Form method="post" action="/logout">
+      <button type="submit">Log out</button>
+    </Form>
+  );
+};
 
 const App: FC = () => {
   const currentUser = useLoaderData();
@@ -52,12 +59,19 @@ const App: FC = () => {
   return (
     <div className="App">
       <div className="App-header">
-        {currentUser ? (
-          <UserDetail user={currentUser} />
-        ) : isTransition ? (
+        {isTransition ? (
           <>...loading</>
         ) : (
-          <LoginButton />
+          <>
+            {currentUser ? (
+              <>
+                <UserDetail user={currentUser} />
+                <LogoutButton />
+              </>
+            ) : (
+              <LoginButton />
+            )}
+          </>
         )}
       </div>
     </div>
