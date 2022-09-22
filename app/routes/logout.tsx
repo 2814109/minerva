@@ -4,5 +4,5 @@ import { logout } from "~/models/auth.server";
 
 export const action: ActionFunction = async () => {
   await logout();
-  return redirect("/auth/login");
+  return redirect("/login");
 };

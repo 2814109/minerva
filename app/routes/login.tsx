@@ -9,8 +9,7 @@ import LoginButton from "~/componets/routes/auth/LoginButton";
 
 export const loader: LoaderFunction = async () => {
   const currentUser = await getCurrentUser();
-  console.log("current user");
-  console.log(currentUser);
+
   return currentUser;
 };
 
@@ -20,7 +19,7 @@ export const action: ActionFunction = async ({ request }) => {
   console.log("user");
   console.log(user);
 
-  return redirect("/auth/login");
+  return redirect("/dashboard");
 };
 
 const App: FC = () => {
