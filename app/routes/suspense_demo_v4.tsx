@@ -45,7 +45,7 @@ function fetchUser() {
       resolve({
         name: "Ringo Starr",
       });
-    }, 1000);
+    }, 7000);
   });
 }
 
@@ -68,7 +68,7 @@ function fetchPosts() {
           text: "You got that sand all over your feet",
         },
       ]);
-    }, 1100);
+    }, 9000);
   });
 }
 
