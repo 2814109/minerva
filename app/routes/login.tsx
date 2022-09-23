@@ -31,7 +31,7 @@ const App: FC = () => {
   const transition = useTransition();
 
   const isTransition = transition.submission;
-
+  console.log(currentUser);
   return (
     <div className="App">
       <div className="App-header">
