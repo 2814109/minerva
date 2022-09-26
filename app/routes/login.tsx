@@ -1,6 +1,6 @@
 import { ActionFunction, LoaderFunction, redirect } from "@remix-run/node";
-import { Form, useActionData, useLoaderData } from "@remix-run/react";
-import { FC, lazy } from "react";
+import { useLoaderData } from "@remix-run/react";
+import { FC } from "react";
 import { loginAnonymous, getCurrentUser } from "~/models/auth.server";
 import { useTransition } from "@remix-run/react";
 import LoginedComponent from "~/componets/routes/auth/LoginedComponent";
@@ -24,9 +24,6 @@ export const action: ActionFunction = async ({ request }) => {
 
 const App: FC = () => {
   const currentUser = useLoaderData();
-  // Keep the logged in Realm user in local state. This lets the app re-render
-  // whenever the current user changes (e.g. logs in or logs out).
-  // If a user is logged in, show their details. Otherwise, show the login screen.
 
   const transition = useTransition();
 
