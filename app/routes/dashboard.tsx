@@ -1,15 +1,13 @@
-import { FC, Suspense } from "react";
+import { FC } from "react";
 
 import Layout from "~/componets/layout";
 import { Outlet } from "@remix-run/react";
 
 const Dashboard: FC = () => {
   return (
-    <Suspense fallback={"loading"}>
-      <Layout>
-        <Outlet />
-      </Layout>
-    </Suspense>
+    <Layout>
+      <Outlet />
+    </Layout>
   );
 };
 
