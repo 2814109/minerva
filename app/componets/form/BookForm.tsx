@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Form } from "@remix-run/react";
 import Modal from "react-modal";
+
 const customStyles = {
   content: {
     top: "50%",
@@ -12,6 +13,7 @@ const customStyles = {
     transform: "translate(-50%, -50%)",
   },
 };
+
 const BookForm: FC = () => {
   const [showModal, setShowModal] = useState<boolean>(true);
   const deleteAction = async () => {};
