@@ -8,6 +8,7 @@ export const createBook = async () => {
   const result = await collection?.insertOne(
     { $set: { favoriteColor: "purple" } } // Set the logged in user's favorite color to purple
   );
-
+  console.log(process.env.COLLECTION_NAME);
+  console.log(process.env.DATABASE_NAME);
   console.log(result);
 };

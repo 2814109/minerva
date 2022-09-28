@@ -2,8 +2,6 @@ import { FC } from "react";
 
 // Fetchしたカテゴリーをアコーディン形式で表示するように実装
 const Sidebar: FC = () => {
-  console.log("sidebar");
-
   return (
     <aside className="w-64">
       <div className="overflow-y-auto py-4 px-3 bg-blue-50 h-screen">
