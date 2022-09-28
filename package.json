@@ -15,11 +15,13 @@
     "@remix-run/node": "^1.7.0",
     "@remix-run/react": "^1.7.0",
     "@remix-run/serve": "^1.7.0",
+    "@types/react-modal": "^3.13.1",
     "abort-controller": "^3.0.0",
     "node-fetch": "^3.2.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.36.1",
+    "react-modal": "^3.15.1",
     "realm-web": "^1.7.1"
   },
   "devDependencies": {
