@@ -7,25 +7,11 @@ export const action: ActionFunction = async () => {
   return redirect("/dashboard/managements/books");
 };
 const Book: FC = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <>
       <h1>Book</h1>
 
-      <button
-        onClick={() => {
-          setIsOpen(!isOpen);
-        }}
-      >
-        create
-      </button>
-
-      {isOpen && (
-        <>
-          <h1>open</h1>
-          <BookForm />
-        </>
-      )}
+      <BookForm />
     </>
   );
 };
