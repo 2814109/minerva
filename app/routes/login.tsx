@@ -14,10 +14,7 @@ export const loader: LoaderFunction = async () => {
 };
 
 export const action: ActionFunction = async ({ request }) => {
-  const user = await loginAnonymous();
-
-  console.log("user");
-  console.log(user);
+  const accessToken = await loginAnonymous();
 
   return redirect("/dashboard");
 };

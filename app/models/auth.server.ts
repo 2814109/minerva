@@ -1,10 +1,10 @@
-import { app } from "~/utils/realmClient.server";
-import * as Realm from "realm-web";
+import { app } from "~/utils/realmNode.server";
+import * as Realm from "realm";
 
 export const loginAnonymous = async () => {
   const credentials = Realm.Credentials.anonymous();
-  const user: Realm.User = await app.logIn(credentials);
-  return user;
+
+  return (await app.logIn(credentials)).accessToken;
 };
 
 export const getCurrentUser = async () => {
@@ -13,6 +13,13 @@ export const getCurrentUser = async () => {
   return currentUser;
 };
 
+// export const isValidateAccessToken = (accessToken:string) => {
+// app
+// }
+
 export const logout = async () => {
-  await app.currentUser?.logOut();
+  console.log("#logout");
+  const result = await app.currentUser?.logOut();
+
+  console.log("response " + result);
 };

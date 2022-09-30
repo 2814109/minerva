@@ -1,6 +1,6 @@
-import { mongoClient } from "~/utils/mongoClient.server";
+import { mongo } from "~/utils/mongo.server";
 export const createBook = async () => {
-  const collection = mongoClient
+  const collection = mongo
     ?.db(String(process.env.DATABASE_NAME))
     .collection(String(process.env.COLLECTION_NAME));
 
