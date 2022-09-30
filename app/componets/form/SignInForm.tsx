@@ -4,7 +4,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 
 type Inputs = {
   username: string;
-  example: string;
+  email: string;
 };
 
 const SignInForm: FC = () => {
@@ -16,10 +16,10 @@ const SignInForm: FC = () => {
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
   return (
-    <div className="h-screen  flex justify-center items-center">
+    <div className=" h-screen  flex justify-center items-center">
       <div className="w-full max-w-md">
         <Form
-          className="bg-gray-100 shadow-md rounded px-12 py-12 pb-8"
+          className="bg-gray-100 shadow-lg rounded px-12 py-12 pb-8"
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className="mb-4">
@@ -43,17 +43,17 @@ const SignInForm: FC = () => {
           <div className="mb-4">
             <label
               className="block text-teal-800 text-sm font-bold mb-2"
-              htmlFor="username"
+              htmlFor="email"
             >
-              Username
+              email
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-teal-500 leading-tight focus:outline-none focus:shadow-outline"
-              id="username"
+              id="email"
               type="text"
-              {...register("example", { required: true })}
+              {...register("email", { required: true })}
             />
-            {errors.example && (
+            {errors.email && (
               <span className="text-orange-800">This field is required</span>
             )}
           </div>

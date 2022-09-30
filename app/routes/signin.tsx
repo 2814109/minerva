@@ -26,7 +26,7 @@ const SignIn: FC = () => {
   const isTransition = transition.submission;
 
   return (
-    <div className="App">
+    <div className="bg-gray-200">
       {isTransition ? (
         <>...loading</>
       ) : (
