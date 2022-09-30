@@ -18,12 +18,12 @@ type FormItems = {
   items: { text: string }[];
 };
 
-const BookForm: FC = () => {
-  const [showModal, setShowModal] = useState<boolean>(true);
-  const closeModal = () => {
-    setShowModal(false);
-  };
+type Props = {
+  showModal: boolean;
+  mutateModal: () => void;
+};
 
+const BookForm: FC<Props> = ({ showModal, mutateModal }) => {
   const { control, register } = useForm<FormItems>({
     defaultValues: { items: [{ text: "test" }] },
   });
@@ -104,7 +104,7 @@ const BookForm: FC = () => {
           <button
             type="button"
             className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
-            onClick={() => closeModal()}
+            onClick={() => mutateModal()}
           >
             閉じる
           </button>

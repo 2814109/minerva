@@ -7,11 +7,18 @@ export const action: ActionFunction = async () => {
   return redirect("/dashboard/managements/books");
 };
 const Book: FC = () => {
+  const [showModal, setShowModal] = useState<boolean>(false);
+
+  const mutateModal = () => {
+    setShowModal(!showModal);
+  };
+
   return (
     <>
       <h1>Book</h1>
+      <button onClick={mutateModal}>Open</button>
 
-      <BookForm />
+      <BookForm showModal={showModal} mutateModal={mutateModal} />
     </>
   );
 };
