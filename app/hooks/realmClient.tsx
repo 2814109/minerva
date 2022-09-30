@@ -5,11 +5,17 @@ type Props = {
 };
 
 const useRealm = ({ APP_ID }: Props) => {
-  const clientRealm = new Realm.App({
+  const config = {
     id: String(APP_ID),
-  });
+  };
 
-  return { clientRealm };
+  const clientRealm = new Realm.App(config);
+
+  const register = (email: string, password: string) => {
+    clientRealm.emailPasswordAuth.registerUser(email, password);
+  };
+
+  return { clientRealm, register };
 };
 
 export default useRealm;

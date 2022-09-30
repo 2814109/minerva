@@ -10,14 +10,10 @@ export const loader: LoaderFunction = async () => {
   return process.env.ATLAS_APP_SERVICE;
 };
 
-export const action: ActionFunction = async ({ request }) => {
-  return redirect("/dashboard");
-};
-
 const SignIn: FC = () => {
   const ATLAS_APP_SERVICE = useLoaderData();
 
-  const { clientRealm } = useRealm(ATLAS_APP_SERVICE);
+  const { clientRealm, register } = useRealm(ATLAS_APP_SERVICE);
   console.log(clientRealm);
 
   const transition = useTransition();
@@ -43,3 +39,7 @@ const SignIn: FC = () => {
 };
 
 export default SignIn;
+
+export const action: ActionFunction = async ({ request }) => {
+  return redirect("/dashboard");
+};
