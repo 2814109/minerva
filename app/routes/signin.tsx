@@ -1,26 +1,24 @@
 import { useTransition } from "@remix-run/react";
 import { useLoaderData } from "@remix-run/react";
 import { ActionFunction, LoaderFunction, redirect } from "@remix-run/node";
-import { loginAnonymous, getCurrentUser } from "~/models/auth.server";
 import LoginedComponent from "~/componets/routes/auth/LoginedComponent";
 import SigninButton from "~/componets/routes/auth/SigninButton";
 import SignInForm from "~/componets/form/SignInForm";
 import { FC } from "react";
-
+import useRealm from "~/hooks/realmClient";
 export const loader: LoaderFunction = async () => {
-  const currentUser = await getCurrentUser();
-
-  return currentUser;
+  return process.env.ATLAS_APP_SERVICE;
 };
 
 export const action: ActionFunction = async ({ request }) => {
-  await loginAnonymous();
-
   return redirect("/dashboard");
 };
 
 const SignIn: FC = () => {
-  const currentUser = useLoaderData();
+  const ATLAS_APP_SERVICE = useLoaderData();
+
+  const { clientRealm } = useRealm(ATLAS_APP_SERVICE);
+  console.log(clientRealm);
 
   const transition = useTransition();
   const isTransition = transition.submission;
@@ -31,12 +29,13 @@ const SignIn: FC = () => {
         <>...loading</>
       ) : (
         <>
-          {currentUser ? (
+          {/* {currentUser ? (
             <LoginedComponent currentUser={currentUser} />
           ) : (
             //   <SigninButton />
             <SignInForm />
-          )}
+          )} */}
+          <SignInForm />
         </>
       )}
     </div>
