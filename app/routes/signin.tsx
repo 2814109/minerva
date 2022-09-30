@@ -4,7 +4,7 @@ import { ActionFunction, LoaderFunction, redirect } from "@remix-run/node";
 import { loginAnonymous, getCurrentUser } from "~/models/auth.server";
 import LoginedComponent from "~/componets/routes/auth/LoginedComponent";
 import SigninButton from "~/componets/routes/auth/SigninButton";
-
+import SignInForm from "~/componets/form/SignInForm";
 import { FC } from "react";
 
 export const loader: LoaderFunction = async () => {
@@ -27,19 +27,18 @@ const SignIn: FC = () => {
 
   return (
     <div className="App">
-      <div className="App-header">
-        {isTransition ? (
-          <>...loading</>
-        ) : (
-          <>
-            {currentUser ? (
-              <LoginedComponent currentUser={currentUser} />
-            ) : (
-              <SigninButton />
-            )}
-          </>
-        )}
-      </div>
+      {isTransition ? (
+        <>...loading</>
+      ) : (
+        <>
+          {currentUser ? (
+            <LoginedComponent currentUser={currentUser} />
+          ) : (
+            //   <SigninButton />
+            <SignInForm />
+          )}
+        </>
+      )}
     </div>
   );
 };
