@@ -20,6 +20,9 @@ type FormItems = {
 
 const BookForm: FC = () => {
   const [showModal, setShowModal] = useState<boolean>(true);
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
   const { control, register } = useForm<FormItems>({
     defaultValues: { items: [{ text: "test" }] },
@@ -90,12 +93,20 @@ const BookForm: FC = () => {
           </button>
         </div>
 
-        <div className="px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+        <div className="px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse justify-between">
           <button
             type="button"
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
           >
             登録する
+          </button>
+
+          <button
+            type="button"
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
+            onClick={() => closeModal()}
+          >
+            閉じる
           </button>
         </div>
       </Form>
