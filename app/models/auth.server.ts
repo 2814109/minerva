@@ -1,10 +1,15 @@
 import { app } from "~/utils/realmNode.server";
 import * as Realm from "realm";
-
+import { UserDetails } from "~/types/models/UserDetails";
 export const loginAnonymous = async () => {
   const credentials = Realm.Credentials.anonymous();
 
   return (await app.logIn(credentials)).accessToken;
+};
+
+export const createUser = async (userDetails: UserDetails) => {
+  const result = await app.emailPasswordAuth.registerUser(userDetails);
+  console.log(result);
 };
 
 export const getCurrentUser = async () => {

@@ -7,7 +7,7 @@ import SignInForm from "~/componets/form/SignInForm";
 import { FC, FormEvent } from "react";
 import useRealm from "~/hooks/realmClient";
 import { SubmitHandler } from "react-hook-form";
-
+import { createUser } from "~/models/auth.server";
 export const loader: LoaderFunction = async () => {
   return process.env.ATLAS_APP_SERVICE;
 };
@@ -50,5 +50,11 @@ const SignIn: FC = () => {
 export default SignIn;
 
 export const action: ActionFunction = async ({ request }) => {
-  return redirect("/dashboard");
+  const formData = await request.formData();
+  const email = String(formData.get("email"));
+  const password = String(formData.get("password"));
+  console.log("action");
+  await createUser({ email, password });
+  return {};
+  //   return redirect("/dashboard");
 };
