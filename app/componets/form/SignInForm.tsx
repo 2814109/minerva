@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { Form } from "@remix-run/react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 type Inputs = {
@@ -7,20 +6,23 @@ type Inputs = {
   email: string;
 };
 
-const SignInForm: FC = () => {
+type Props = {
+  handleSubmit: SubmitHandler<Inputs>;
+};
+
+const SignInForm: FC<Props> = ({ handleSubmit }) => {
   const {
     register,
-    handleSubmit,
+    handleSubmit: reactHooksFormHandleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
   return (
     <div className=" h-screen  flex justify-center items-center">
       <div className="w-full max-w-md">
-        <Form
+        <form
           className="bg-gray-100 shadow-lg rounded px-12 py-12 pb-8"
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={reactHooksFormHandleSubmit(handleSubmit)}
         >
           <div className="mb-4">
             <label
@@ -65,7 +67,7 @@ const SignInForm: FC = () => {
               value="Sign in"
             />
           </div>
-        </Form>
+        </form>
       </div>
     </div>
   );
