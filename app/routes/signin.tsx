@@ -36,19 +36,15 @@ const SignIn: FC = () => {
 
   return (
     <div className="bg-gray-200">
-      {isTransition ? (
-        <>...loading</>
-      ) : (
-        <>
-          {/* {currentUser ? (
+      <>
+        {/* {currentUser ? (
             <LoginedComponent currentUser={currentUser} />
           ) : (
             //   <SigninButton />
             <SignInForm />
           )} */}
-          <SignInForm errors={data} />
-        </>
-      )}
+        <SignInForm errors={data} />
+      </>
     </div>
   );
 };
