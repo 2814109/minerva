@@ -53,7 +53,7 @@ export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
   const email = String(formData.get("email"));
   const password = String(formData.get("password"));
-  console.log("action");
+
   await createUser({ email, password });
   return {};
   //   return redirect("/dashboard");

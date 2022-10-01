@@ -3,8 +3,8 @@ import { Form } from "@remix-run/react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 type Inputs = {
-  username: string;
   email: string;
+  password: string;
 };
 
 type Props = {
@@ -24,26 +24,7 @@ const SignInForm: FC<Props> = ({ handleSubmit }) => {
         <Form
           className="bg-gray-100 shadow-lg rounded px-12 py-12 pb-8"
           method="post"
-          //   onSubmit={reactHooksFormHandleSubmit(handleSubmit)}
         >
-          <div className="mb-4">
-            <label
-              className="block text-teal-800 text-sm font-bold mb-2"
-              htmlFor="username"
-            >
-              Username
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-teal-500 leading-tight focus:outline-none focus:shadow-outline"
-              id="username"
-              type="text"
-              {...register("username", { required: true })}
-            />
-            {errors.username && (
-              <span className="text-orange-800">This field is required</span>
-            )}
-          </div>
-
           <div className="mb-4">
             <label
               className="block text-teal-800 text-sm font-bold mb-2"
@@ -55,9 +36,27 @@ const SignInForm: FC<Props> = ({ handleSubmit }) => {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-teal-500 leading-tight focus:outline-none focus:shadow-outline"
               id="email"
               type="text"
-              {...register("email", { required: true })}
+              {...register("email")}
             />
             {errors.email && (
+              <span className="text-orange-800">This field is required</span>
+            )}
+          </div>
+
+          <div className="mb-4">
+            <label
+              className="block text-teal-800 text-sm font-bold mb-2"
+              htmlFor="password"
+            >
+              password
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-teal-500 leading-tight focus:outline-none focus:shadow-outline"
+              id="password"
+              type="text"
+              {...register("password")}
+            />
+            {errors.password && (
               <span className="text-orange-800">This field is required</span>
             )}
           </div>
