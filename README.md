@@ -1,3 +1,13 @@
+# development remarks
+
+## Mongo Atlas
+
+### Auth
+
+Where : App Services > Authentication > Authentication Provider
+
+- You must set up permissions to be able to sign in.
+
 # Welcome to Remix!
 
 - [Remix Docs](https://remix.run/docs)
@@ -51,4 +61,5 @@ rm -rf app
 # copy your app over
 cp -R ../my-old-remix-app/app app
 ```
+
 # minerva
