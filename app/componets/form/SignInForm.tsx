@@ -1,22 +1,21 @@
 import { FC } from "react";
 import { Form } from "@remix-run/react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { UserDetails } from "~/types/models/UserDetails";
 
 type Inputs = {
   email: string;
   password: string;
 };
 
-type Props = {
-  handleSubmit: SubmitHandler<Inputs>;
-};
+// type Props = {
+//   handleSubmit: SubmitHandler<Inputs>;
+// };
 
-const SignInForm: FC<Props> = ({ handleSubmit }) => {
-  const {
-    register,
-    handleSubmit: reactHooksFormHandleSubmit,
-    formState: { errors },
-  } = useForm<Inputs>();
+type Props = { errors: UserDetails };
+
+const SignInForm: FC<Props> = ({ errors }) => {
+  const { register } = useForm<Inputs>();
 
   return (
     <div className=" h-screen  flex justify-center items-center">
@@ -38,8 +37,8 @@ const SignInForm: FC<Props> = ({ handleSubmit }) => {
               type="text"
               {...register("email")}
             />
-            {errors.email && (
-              <span className="text-orange-800">This field is required</span>
+            {errors?.email && (
+              <span className="text-orange-800">{errors.email}</span>
             )}
           </div>
 
@@ -56,8 +55,8 @@ const SignInForm: FC<Props> = ({ handleSubmit }) => {
               type="text"
               {...register("password")}
             />
-            {errors.password && (
-              <span className="text-orange-800">This field is required</span>
+            {errors?.password && (
+              <span className="text-orange-800">{errors.password}</span>
             )}
           </div>
 

@@ -1,13 +1,20 @@
-import { useTransition } from "@remix-run/react";
-import { useLoaderData } from "@remix-run/react";
-import { ActionFunction, LoaderFunction, redirect } from "@remix-run/node";
-import LoginedComponent from "~/componets/routes/auth/LoginedComponent";
-import SigninButton from "~/componets/routes/auth/SigninButton";
+import { useTransition, useActionData } from "@remix-run/react";
+import {
+  ActionFunction,
+  LoaderFunction,
+  redirect,
+  json,
+} from "@remix-run/node";
+// import LoginedComponent from "~/componets/routes/auth/LoginedComponent";
+// import SigninButton from "~/componets/routes/auth/SigninButton";
 import SignInForm from "~/componets/form/SignInForm";
-import { FC, FormEvent } from "react";
-import useRealm from "~/hooks/realmClient";
-import { SubmitHandler } from "react-hook-form";
+import { FC } from "react";
+// import useRealm from "~/hooks/realmClient";
+// import { SubmitHandler } from "react-hook-form";
 import { createUser } from "~/models/auth.server";
+import { UserDetails } from "~/types/models/UserDetails";
+// import { UserDetails } from "~/types/models/UserDetails";
+
 export const loader: LoaderFunction = async () => {
   return process.env.ATLAS_APP_SERVICE;
 };
@@ -17,14 +24,13 @@ type Inputs = {
   email: string;
 };
 const SignIn: FC = () => {
-  const ATLAS_APP_SERVICE = useLoaderData();
+  const data = useActionData();
+  console.log(data);
 
-  const { clientRealm, register } = useRealm(ATLAS_APP_SERVICE);
+  //   const ATLAS_APP_SERVICE = useLoaderData();
 
-  const handleSubmit: SubmitHandler<Inputs> = (formData) => {
-    console.log("#");
-    console.log(formData);
-  };
+  //   const { clientRealm, register } = useRealm(ATLAS_APP_SERVICE);
+
   const transition = useTransition();
   const isTransition = transition.submission;
 
@@ -40,7 +46,7 @@ const SignIn: FC = () => {
             //   <SigninButton />
             <SignInForm />
           )} */}
-          <SignInForm handleSubmit={handleSubmit} />
+          <SignInForm errors={data} />
         </>
       )}
     </div>
@@ -50,9 +56,23 @@ const SignIn: FC = () => {
 export default SignIn;
 
 export const action: ActionFunction = async ({ request }) => {
+  const errors: UserDetails = { email: "", password: "" };
+
   const formData = await request.formData();
   const email = String(formData.get("email"));
   const password = String(formData.get("password"));
+
+  if (typeof email !== "string" || !email.includes("@")) {
+    errors.email = "That doesn't look like an email address";
+  }
+
+  if (typeof password !== "string" || password.length < 6) {
+    errors.password = "Password must be > 6 characters";
+  }
+
+  if (Object.keys(errors).length) {
+    return json(errors, { status: 422 });
+  }
 
   await createUser({ email, password });
   return {};
