@@ -11,6 +11,14 @@ export const createUser = async (userDetails: UserDetails) => {
   await app.emailPasswordAuth.registerUser(userDetails);
 };
 
+export const loginUser = async (userDetails: UserDetails) => {
+  const credentials = Realm.Credentials.emailPassword(
+    userDetails.email,
+    userDetails.password
+  );
+  return (await app.logIn(credentials)).accessToken;
+};
+
 export const getCurrentUser = async () => {
   const currentUser = app.currentUser;
 

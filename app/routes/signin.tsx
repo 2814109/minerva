@@ -1,35 +1,13 @@
-import { useActionData, useTransition } from "@remix-run/react";
-import {
-  ActionFunction,
-  LoaderFunction,
-  redirect,
-  json,
-} from "@remix-run/node";
-import SignInForm from "~/componets/form/SignInForm";
+import { useActionData } from "@remix-run/react";
+import { ActionFunction, redirect, json } from "@remix-run/node";
+import AuthForm from "~/componets/form/AuthForm";
 import { FC } from "react";
 import { createUser } from "~/models/auth.server";
-import Spinner from "~/componets/Spinner";
-export const loader: LoaderFunction = async () => {
-  return process.env.ATLAS_APP_SERVICE;
-};
 
 const SignIn: FC = () => {
   const errors = useActionData();
-  const transition = useTransition();
 
-  return (
-    <>
-      {transition.submission ? (
-        <div className="h-screen flex justify-center items-center">
-          <Spinner />
-        </div>
-      ) : (
-        <div className="bg-gray-200">
-          <SignInForm errors={errors} />{" "}
-        </div>
-      )}
-    </>
-  );
+  return <AuthForm errors={errors} role={"signin"} />;
 };
 
 export default SignIn;
