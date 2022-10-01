@@ -8,8 +8,7 @@ export const loginAnonymous = async () => {
 };
 
 export const createUser = async (userDetails: UserDetails) => {
-  const result = await app.emailPasswordAuth.registerUser(userDetails);
-  console.log(result);
+  await app.emailPasswordAuth.registerUser(userDetails);
 };
 
 export const getCurrentUser = async () => {

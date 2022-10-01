@@ -8,10 +8,6 @@ type Inputs = {
   password: string;
 };
 
-// type Props = {
-//   handleSubmit: SubmitHandler<Inputs>;
-// };
-
 type Props = { errors: UserDetails };
 
 const SignInForm: FC<Props> = ({ errors }) => {
@@ -52,7 +48,7 @@ const SignInForm: FC<Props> = ({ errors }) => {
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-teal-500 leading-tight focus:outline-none focus:shadow-outline"
               id="password"
-              type="text"
+              type="password"
               {...register("password")}
             />
             {errors?.password && (

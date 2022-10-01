@@ -1,4 +1,4 @@
-import { useActionData } from "@remix-run/react";
+import { useActionData, useTransition } from "@remix-run/react";
 import {
   ActionFunction,
   LoaderFunction,
@@ -8,28 +8,34 @@ import {
 import SignInForm from "~/componets/form/SignInForm";
 import { FC } from "react";
 import { createUser } from "~/models/auth.server";
-import { UserDetails } from "~/types/models/UserDetails";
-
+import Spinner from "~/componets/Spinner";
 export const loader: LoaderFunction = async () => {
   return process.env.ATLAS_APP_SERVICE;
 };
 
 const SignIn: FC = () => {
   const errors = useActionData();
+  const transition = useTransition();
 
   return (
-    <div className="bg-gray-200">
-      <>
-        <SignInForm errors={errors} />
-      </>
-    </div>
+    <>
+      {transition.submission ? (
+        <div className="h-screen flex justify-center items-center">
+          <Spinner />
+        </div>
+      ) : (
+        <div className="bg-gray-200">
+          <SignInForm errors={errors} />{" "}
+        </div>
+      )}
+    </>
   );
 };
 
 export default SignIn;
 
 export const action: ActionFunction = async ({ request }) => {
-  const errors: UserDetails = { email: "", password: "" };
+  const errors: any = {};
 
   const formData = await request.formData();
   const email = String(formData.get("email"));
@@ -47,7 +53,6 @@ export const action: ActionFunction = async ({ request }) => {
     return json(errors, { status: 422 });
   }
 
-  await createUser({ email, password });
-  return {};
-  //   return redirect("/dashboard");
+  await createUser({ email, password }).catch((error) => console.log(error));
+  return redirect("/login");
 };
