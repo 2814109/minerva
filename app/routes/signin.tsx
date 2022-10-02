@@ -6,7 +6,6 @@ import { createUser } from "~/models/auth.server";
 
 const SignIn: FC = () => {
   const errors = useActionData();
-
   return <AuthForm errors={errors} role={"signin"} />;
 };
 
