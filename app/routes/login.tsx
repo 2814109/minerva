@@ -3,6 +3,7 @@ import { ActionFunction, redirect, json } from "@remix-run/node";
 import AuthForm from "~/componets/form/AuthForm";
 import { FC } from "react";
 import { loginUser } from "~/models/auth.server";
+import { getSession, commitSession } from "~/utils/sessions.server";
 
 const Login: FC = () => {
   const errors = useActionData();
@@ -32,6 +33,14 @@ export const action: ActionFunction = async ({ request }) => {
   }
 
   const accessToken = await loginUser({ email, password });
-  console.log(accessToken);
-  return redirect("/dashboard");
+
+  // set session
+  const session = await getSession(request.headers.get("Cookie"));
+  session.set("access_token", accessToken);
+
+  return redirect("/dashboard", {
+    headers: {
+      "Set-Cookie": await commitSession(session),
+    },
+  });
 };
