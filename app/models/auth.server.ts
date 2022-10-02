@@ -19,19 +19,15 @@ export const loginUser = async (userDetails: UserDetails) => {
   return (await app.logIn(credentials)).accessToken;
 };
 
-export const getCurrentUser = async () => {
-  const currentUser = app.currentUser;
-
-  return currentUser;
+export const getIsLoggedIn = async () => {
+  const isLoggedIn = app.currentUser?.isLoggedIn;
+  return isLoggedIn;
 };
 
-// export const isValidateAccessToken = (accessToken:string) => {
-// app
-// }
+export const getUserId = async () => {
+  return app.currentUser?.id;
+};
 
 export const logout = async () => {
-  console.log("#logout");
-  const result = await app.currentUser?.logOut();
-
-  console.log("response " + result);
+  await app.currentUser?.logOut();
 };
