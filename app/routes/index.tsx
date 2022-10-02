@@ -1,5 +1,5 @@
 import { LoaderFunction, redirect } from "@remix-run/node";
-
-export const loader: LoaderFunction = () => {
-  return redirect("/login");
+import { getIsLoggedIn } from "~/models/auth.server";
+export const loader: LoaderFunction = async () => {
+  return (await getIsLoggedIn()) ? redirect("/dashboard") : redirect("/login");
 };
