@@ -1,17 +1,12 @@
 import { FC } from "react";
-import { getCurrentUser } from "~/models/auth.server";
 import Layout from "~/componets/layout";
 import { Outlet } from "@remix-run/react";
-import { LoaderFunction, redirect } from "@remix-run/node";
-
-export const loader: LoaderFunction = async () => {
-  const currentUser = await getCurrentUser();
-  console.log(currentUser);
-  if (currentUser === null) {
-    console.log("#");
-    return redirect("/login");
-  }
-
+import { LoaderFunction } from "@remix-run/node";
+export const loader: LoaderFunction = async ({ request }) => {
+  // const session = await getSession(request.headers.get("Cookie"));
+  // if (!session.has("access_token")) {
+  //   return redirect("/login");
+  // }
   return {};
 };
 const Dashboard: FC = () => {
