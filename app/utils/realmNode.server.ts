@@ -1,12 +1,11 @@
-import Realm from "realm";
+import * as Realm from "realm";
 
 const {
   BSON: { ObjectId },
 } = Realm;
 
-export const app = new Realm.App({
+const config = {
   id: String(process.env.ATLAS_APP_SERVICE),
-});
+};
 
-// const authenticate = new Realm.Auth.EmailPasswordAuth();
-// authenticate.confirmUser({ token: "", tokenId: "" });
+export const app = new Realm.App(config);
